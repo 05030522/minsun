@@ -1,179 +1,204 @@
-/* =========================================
-   PC / 모바일 헤더 노출 분기 및 메가 메뉴 스타일
-========================================= */
-/* =========================================
-   헤더 상단 레이아웃 및 디자인 (PC)
-========================================= */
-
-/* 1. 기본 리스트 및 링크 스타일 초기화 */
-header.pc ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-header.pc a {
-    text-decoration: none;
-    color: #333;
-}
-
-/* 2. 헤더 전체 배경색 (시안의 베이지톤) */
 header.pc {
-    background-color: #FCF8EE; /* 배경색은 필요에 따라 약간 수정하세요 */
+    position: relative;
+    z-index: 100;
+    background: var(--lumora-cream);
+    border-bottom: 1px solid rgba(77, 65, 48, .08);
 }
 
-/* 3. 상단 영역 (로고 & 우측 메뉴) 양끝 배치 */
+header.pc ul { list-style: none; }
+
 .header-top .common-frame {
+    min-height: 112px;
     display: flex;
-    justify-content: space-between; /* 양쪽 끝으로 밀어내기 */
-    align-items: center;            /* 세로 중앙 정렬 */
-    padding: 25px 0 10px;           /* 상하 여백 조정 */
+    align-items: center;
+    justify-content: space-between;
 }
 
-/* 4. 로고 크기 조정 */
-.header-top .logo img {
-    height: 76px; /* 스크린샷처럼 로고 크기를 적당하게 조절 */
-}
+.header-top .logo img { width: 190px; height: auto; }
 
-/* 5. 우측 유저 메뉴 (가로 배치) */
 .user-menu {
     display: flex;
-    gap: 20px; /* 아이콘 사이 간격 */
     align-items: center;
+    gap: 24px;
 }
 
-/* 6. 유저 메뉴 안의 아이콘과 글자 (세로 배치) */
 .user-menu li a {
+    min-width: 46px;
     display: flex;
-    flex-direction: column; /* 아이콘 위, 글자 아래 */
-    align-items: center;    /* 가운데 정렬 */
-    gap: 6px;               /* 아이콘과 글자 사이 간격 */
-    font-size: 11px;        /* 글자 크기 작게 */
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    color: #38342f;
+    font-size: 11px;
     font-weight: 500;
 }
 
-/* 유저 메뉴 아이콘 크기 제어 */
-.user-menu li a img {
-    width: 22px;
-    height: 22px;
-}
+.user-menu li a img { width: 23px; height: 23px; object-fit: contain; }
+.header-bottom { position: relative; }
 
-/* 7. 하단 메인 메뉴(GNB) 영역 여백 */
-.header-bottom {
-    position: relative; /* 메가 메뉴가 넓게 펼쳐질 수 있도록 기준점 추가 */
-}
-.header-bottom .common-frame {
-    padding-bottom: 5px;
-}
-
-/* =========================================
-   GNB 메인 메뉴 및 2Depth 메가 메뉴 패널
-========================================= */
-
-/* GNB 기본 스타일 및 리스트 가로 정렬 */
 .pc .gnb {
     display: flex;
-    gap: 40px;
-}
-.pc .gnb > li {
-    /* 원래 있던 position: relative; 삭제 (메뉴가 밖으로 튕겨나가는 원인) */
-    padding: 20px 0;
+    align-items: center;
+    gap: clamp(28px, 2.5vw, 48px);
 }
 
-/* 메뉴 호버 시 아래 밑줄 애니메이션 (스크린샷 참고) */
+.pc .gnb > li { padding: 17px 0 20px; }
 .pc .gnb > li > a {
-    font-size: 15px;
-    font-weight: bold;
-    color: #333;
     position: relative;
-    padding-bottom: 5px;
+    padding-bottom: 8px;
+    color: #292620;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .01em;
 }
-.pc .gnb > li:hover > a {
-    color: #e5b550; /* 시안과 유사한 밝은 머스타드 색상 */
-}
-.pc .gnb > li:hover > a::after {
+
+.pc .gnb > li > a::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    right: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #e5b550;
+    height: 1px;
+    background: var(--lumora-gold);
+    transform: scaleX(0);
+    transition: transform .2s ease;
 }
 
-/* 2Depth 메가 메뉴 패널 (기본 숨김) */
+.pc .gnb > li:hover > a,
+.pc .gnb > li:focus-within > a { color: #8f885a; }
+.pc .gnb > li:hover > a::after,
+.pc .gnb > li:focus-within > a::after { transform: scaleX(1); }
+
 .pc .gnb2depth {
     position: absolute;
     top: 100%;
-    left: 0;         /* 50%에서 0으로 변경 (화면 왼쪽 끝부터 시작) */
-    width: 100%;     /* 100vw 대신 100% 사용 */
-    background-color: #fff;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #ddd;
-    padding: 30px 0;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.05);
-    z-index: 999;
-    
-    opacity: 0;
+    left: 0;
+    width: 100%;
+    padding: 34px 0 38px;
     visibility: hidden;
-    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, .98);
+    border-top: 1px solid #eee9e0;
+    box-shadow: 0 18px 35px rgba(42, 34, 24, .08);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s;
 }
 
-/* 마우스 호버 시 메가 메뉴 나타남 */
-.pc .gnb > li:hover .gnb2depth {
-    opacity: 1;
+.pc .gnb > li:hover .gnb2depth,
+.pc .gnb > li:focus-within .gnb2depth {
     visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* 메가 메뉴 내부 레이아웃 */
-.pc .gnb2depth .common-frame {
-    display: flex;
-    gap: 60px;
-    align-items: flex-start;
-}
-
-/* 각 카테고리 섹션 스타일 */
-.pc .gnb2depth section {
-    min-width: 180px; /* 섹션 넓이를 여유 있게 설정 */
-}
+.pc .gnb2depth .common-frame { display: flex; align-items: flex-start; gap: 72px; }
+.pc .gnb2depth section { min-width: 170px; }
 .pc .gnb2depth section h4 {
-    font-size: 15px;
-    font-weight: bold;
-    color: #000;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
     padding-bottom: 12px;
-    border-bottom: 1px solid #ddd; /* 얇은 회색 밑줄 */
+    border-bottom: 1px solid #e5e0d7;
+    font-size: 14px;
 }
-.pc .gnb2depth section h4 a {
-    color: #000;
-}
-.pc .gnb2depth section ul {
-    display: flex;
-    flex-direction: column;
-    gap: 14px; /* 세부 메뉴 상하 간격 넓힘 */
-}
-.pc .gnb2depth section ul li a {
-    font-size: 13px;
-    color: #333;
-    transition: color 0.2s;
-}
-.pc .gnb2depth section ul li a:hover {
-    color: #e5b550; /* 호버 시 색상 변경 */
-    font-weight: bold;
-}
+.pc .gnb2depth section ul { display: grid; gap: 11px; }
+.pc .gnb2depth section li a { color: #676159; font-size: 13px; }
+.pc .gnb2depth section li a:hover { color: #8f885a; }
 
-/* =========================================
-   PC/모바일 헤더 노출 분기
-========================================= */
 .smart-header,
-.smart-overlay-menu {
-    display: none;
+.smart-overlay-menu { display: none; }
+
+@media (max-width: 1024px) {
+    header.pc { display: none; }
+    .smart-header {
+        position: relative;
+        z-index: 120;
+        display: block;
+        height: 72px;
+        background: var(--lumora-cream);
+        border-bottom: 1px solid rgba(77, 65, 48, .08);
+    }
+    .smart-header .common-frame {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .smart-header .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .smart-header .logo img { width: 150px; }
+    .smart-actions { display: flex; align-items: center; gap: 14px; }
+    .smart-actions a { display: block; padding: 4px; }
+    .smart-actions img { width: 19px; height: 19px; object-fit: contain; }
+    .smart-header .btn-menu img { width: 25px; height: 25px; }
+
+    .smart-overlay-menu {
+        position: fixed;
+        inset: 0;
+        z-index: 130;
+        display: block;
+        overflow-y: auto;
+        visibility: hidden;
+        opacity: 0;
+        background: #fff;
+        transform: translateY(-16px);
+        pointer-events: none;
+        transition: opacity .22s ease, transform .22s ease, visibility .22s;
+    }
+    .smart-overlay-menu.is-open {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+    .smart-overlay-menu-1 {
+        height: 72px;
+        display: flex;
+        align-items: center;
+        background: var(--lumora-cream);
+    }
+    .smart-overlay-menu-1 .common-frame { display: flex; justify-content: flex-end; }
+    .btn-menu-close img { width: 25px; height: 25px; }
+    .smart-overlay-menu-2 { padding: 25px 0; border-bottom: 1px solid #eee8de; }
+    .smart-overlay-menu-2 .user-menu { justify-content: center; gap: clamp(18px, 7vw, 54px); }
+    .smart-overlay-menu-top { padding: 26px 0 14px; }
+    .gnb-smart {
+        display: grid;
+        grid-template-columns: repeat(7, max-content);
+        gap: 28px;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        scrollbar-width: none;
+    }
+    .gnb-smart::-webkit-scrollbar { display: none; }
+    .gnb-smart a { font-size: 14px; font-weight: 600; }
+    .smart-overlay-menu-bottom { padding-bottom: 48px; }
+    .gnb2depth-smart { display: none; }
+    .gnb2depth-smart.is-active { display: block; }
+    .gnb2depth-smart .common-frame {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px;
+    }
+    .gnb2depth-smart section:first-child { grid-column: 1 / -1; }
+    .gnb2depth-smart h4 {
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e7e1d7;
+        font-size: 14px;
+    }
+    .gnb2depth-smart ul { display: grid; gap: 9px; }
+    .gnb2depth-smart li a { color: #6e685f; font-size: 13px; }
 }
 
-@media screen and (max-width: 1024px) {
-    header.pc {
-        display: none;
-    }
-    .smart-header {
-        display: block;
-    }
+@media (max-width: 600px) {
+    .smart-header,
+    .smart-overlay-menu-1 { height: 60px; }
+    .smart-header .logo { position: static; transform: none; }
+    .smart-header .logo img { width: 128px; }
+    .smart-actions { display: none; }
+    .smart-overlay-menu-2 .user-menu { justify-content: space-between; gap: 4px; }
+    .smart-overlay-menu-2 .user-menu li a { min-width: 48px; font-size: 10px; }
+    .gnb2depth-smart .common-frame { grid-template-columns: 1fr 1fr; }
 }

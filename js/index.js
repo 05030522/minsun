@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.querySelectorAll('main img, footer img').forEach((image) => {
+        if (!image.closest('.hero-slider')) {
+            image.loading = 'lazy';
+            image.decoding = 'async';
+        }
+    });
+
     // 1. 히어로 배너 슬라이드
     const heroSlider = new Swiper('.hero-slider', {
         loop: true,
@@ -6,11 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
             el: '.swiper-pagination',
             clickable: true,
         },
-        autoplay: {
+        autoplay: reduceMotion ? false : {
             delay: 4000,
             disableOnInteraction: false,
         },
-        speed: 1000
+        speed: reduceMotion ? 0 : 900,
+        effect: 'slide'
     });
 
     // 2. Section 1 (Timeless Pieces) 카드리스트 슬라이드
@@ -33,9 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 spaceBetween: 16,
             }
         },
-        autoplay: {
-            delay: 3000
-        }
+        autoplay: reduceMotion ? false : {
+            delay: 3000,
+            disableOnInteraction: false
+        },
+        watchOverflow: true
     });
 
     // 3. Section 2 (공간에 담긴 LUMORA) 리뷰 스토리 슬라이드
@@ -57,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 slidesPerView: 4,
                 spaceBetween: 16,
             }
-        }
+        },
+        watchOverflow: true
     });
 });
