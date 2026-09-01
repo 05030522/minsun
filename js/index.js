@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.querySelectorAll('main img, footer img').forEach((image) => {
+        if (!image.closest('.hero-slider')) {
+            image.loading = 'lazy';
+            image.decoding = 'async';
+        }
+    });
+
     // 1. 히어로 배너 슬라이드
     const heroSlider = new Swiper('.hero-slider', {
         loop: true,
@@ -6,11 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
             el: '.swiper-pagination',
             clickable: true,
         },
-        autoplay: {
+        autoplay: reduceMotion ? false : {
             delay: 4000,
             disableOnInteraction: false,
         },
-        speed: 900,
+        speed: reduceMotion ? 0 : 900,
         effect: 'slide'
     });
 
@@ -34,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 spaceBetween: 16,
             }
         },
-        autoplay: {
+        autoplay: reduceMotion ? false : {
             delay: 3000,
             disableOnInteraction: false
         },

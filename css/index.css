@@ -80,17 +80,32 @@ ul, li {
 .review-story li {
     display: flex;
     flex-direction: column;
+    height: auto;
+}
+.review-story > li > figure {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
 }
 .review-story figure img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 4px;
 }
 .story-txt {
     margin-top: 15px;
 }
+.story-txt .stars {
+    min-height: 19px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
 .story-txt .stars img {
+    flex: 0 0 19px;
     width: 19px;
-    margin-right: 1px;
+    height: 19px;
+    margin: 0;
 }
 .story-txt h4 {
     font-size: 16px;
@@ -123,6 +138,7 @@ ul, li {
     width: 60px;
     height: 60px;
     flex-shrink: 0;
+    overflow: hidden;
 }
 .story-product figure img {
     width: 100%;
@@ -130,7 +146,8 @@ ul, li {
     object-fit: cover;
 }
 .story-product-txt {
-    width: calc(100% - 75px);
+    min-width: 0;
+    flex: 1;
 }
 .story-product-txt .product-name {
     font-size: 13px;
@@ -461,31 +478,19 @@ footer {
     .sale-product-grid .txt-wrap p { font-size: 11px; }
     .sale-product-grid .sale-price { font-size: 14px; }
 
-    .footer-top .common-frame { justify-content: flex-start; }
-    
-    .f-grid {
-        display: flex;
+    .footer-top .common-frame { justify-content: space-between; }
+    .f-main-wrap {
         flex-direction: column;
-        gap: 50px;
+        gap: 36px;
     }
-
-    .item-company { order: 1; }
-    .item-brand { order: 2; }
-    .item-cs { order: 3; }
-
-    .info-list {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px 30px;
+    .company-info { width: 100%; }
+    .info-grid {
+        grid-template-columns: 110px minmax(0, 1fr) 110px minmax(0, 1fr);
+        gap: 14px 24px;
     }
-    .info-list .full-row {
-        grid-column: 1 / -1;
-        margin-bottom: 5px;
-    }
-    .info-list li { display: flex; }
-    .info-list .title-span { width: 130px; }
-
     .footer-brand {
+        width: 100%;
+        max-width: none;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -497,14 +502,8 @@ footer {
     .footer-brand .f-logo { margin-bottom: 20px; }
 
     .cs-center {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        margin-top: 44px;
         text-align: center;
-    }
-    .cs-center .cs-time {
-        display: inline-block;
-        text-align: left;
     }
 }
 
@@ -519,6 +518,17 @@ footer {
     .title p { font-size: 12px; }
     .con1, .con3 { padding: 40px 0; }
     .con2 { padding: 40px 0 60px; }
+
+    .story-txt { margin-top: 12px; }
+    .story-txt h4 { font-size: 14px; line-height: 1.45; }
+    .story-txt p { font-size: 12px; }
+    .story-product { padding-top: 12px; }
+    .story-product a { gap: 8px; padding: 9px; }
+    .story-product figure { width: 48px; height: 48px; }
+    .story-product-txt .product-name { font-size: 11px; }
+    .story-product-txt .product-category,
+    .story-product-txt .pay-original { font-size: 10px; }
+    .story-product-txt .pay-discount { gap: 3px; font-size: 11px; }
 
     .banner-line .common-frame {
         display: flex;
@@ -549,37 +559,49 @@ footer {
         text-overflow: ellipsis;
     }
 
+    .footer-top .common-frame {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
     .f-nav {
+        width: 100%;
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 12px 10px;
     }
-
-    .f-grid { gap: 30px; }
-    
-    .info-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+    .f-pad { padding-right: 0; padding-left: 0; }
+    .footer-bottom { padding-top: 32px; }
+    .f-main-wrap { gap: 30px; }
+    .info-grid {
+        grid-template-columns: 96px minmax(0, 1fr);
+        gap: 12px 16px;
+        font-size: 11px;
     }
-    .info-list .title-span { width: 100px; }
-    .info-list .full-row {
-        display: flex;
-        flex-direction: row;
-    }
-
     .footer-brand {
+        align-items: flex-start;
+        text-align: left;
         padding-top: 10px;
         padding-bottom: 10px;
     }
+    .f-logo img { height: 44px; }
 
     .cs-center {
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 28px;
         align-items: flex-start;
         text-align: left;
     }
     .cs-center h2 { font-size: 18px; margin-bottom: 10px; }
-    .cs-center .cs-time li { display: flex; margin-bottom: 4px; }
-    .cs-center .cs-time span { width: 70px; }
+    .cs-time .time-row { gap: 20px; }
 
     .copyright { font-size: 10px; line-height: 1.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cardlist li img,
+    .sale-product-grid figure img {
+        transition: none;
+    }
 }
