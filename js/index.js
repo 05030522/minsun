@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
             delay: 4000,
             disableOnInteraction: false,
         },
-        speed: 1000
+        speed: 900,
+        effect: 'slide'
     });
 
     // 2. Section 1 (Timeless Pieces) 카드리스트 슬라이드
@@ -34,8 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
         autoplay: {
-            delay: 3000
-        }
+            delay: 3000,
+            disableOnInteraction: false
+        },
+        watchOverflow: true
     });
 
     // 3. Section 2 (공간에 담긴 LUMORA) 리뷰 스토리 슬라이드
@@ -57,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 slidesPerView: 4,
                 spaceBetween: 16,
             }
-        }
+        },
+        watchOverflow: true
     });
 });

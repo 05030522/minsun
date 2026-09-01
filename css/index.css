@@ -12,6 +12,7 @@ ul, li {
 /* 히어로 배너 기기별 이미지 노출 제어 */
 .hero-slider .swiper-slide img {
     width: 100%;
+    height: auto;
     display: none;
 }
 .hero-slider .swiper-slide img.pc {
@@ -46,7 +47,7 @@ ul, li {
 /* =========================================
    [ Section 1 ] Timeless Pieces
 ========================================= */
-.con1 { padding: 80px 0; }
+.con1 { padding: 96px 0; }
 .cardlist li a {
     position: relative;
     display: block;
@@ -54,6 +55,8 @@ ul, li {
 }
 .cardlist li img {
     width: 100%;
+    aspect-ratio: 444 / 296;
+    object-fit: cover;
     transition: transform 0.3s;
 }
 .cardlist li a:hover img {
@@ -73,7 +76,7 @@ ul, li {
 /* =========================================
    [ Section 2 ] 공간에 담긴 LUMORA
 ========================================= */
-.con2 { padding: 80px 0 120px; }
+.con2 { padding: 92px 0 120px; }
 .review-story li {
     display: flex;
     flex-direction: column;
@@ -161,7 +164,7 @@ ul, li {
     font-weight: 700;
 }
 
-./* =========================================
+/* =========================================
    [ Section 3 ] LUMORA Exclusive Sale
 ========================================= */
 .con3 { 
@@ -171,7 +174,7 @@ ul, li {
 .sale-product-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 34px 20px;
 }
 
 /* 1. 링크 기본 스타일(보라색 텍스트, 밑줄) 제거 */
@@ -189,6 +192,8 @@ ul, li {
 }
 .sale-product-grid figure img {
     width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
     display: block;
     transition: transform 0.3s;
 }
@@ -258,7 +263,7 @@ footer {
     background-color: #000; /* 검정 배경 */
     color: #fff;            /* 기본 글자색 흰색 */
     padding: 0;
-    margin-top: 50px;
+    margin-top: 0;
 }
 
 /* 양옆 넉넉한 여백용 클래스 */
